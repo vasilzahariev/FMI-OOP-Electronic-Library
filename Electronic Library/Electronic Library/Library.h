@@ -13,6 +13,8 @@ public:
 
 	Library& operator=(const Library& other);
 
+	Book& operator[](const char* title);
+
 	Library& operator+=(const Book& book);
 	Library& operator-=(const Book& book);
 

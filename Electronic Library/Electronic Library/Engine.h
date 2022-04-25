@@ -14,7 +14,8 @@ private:
 	void printOperations();
 
 	void sortBook();
-	void addBook();
+	void addBook(); // TODO: Add security
+	void removeBook(); // TODO: Add security
 };
 
 bool cmpTitle(const Book&, const Book&);

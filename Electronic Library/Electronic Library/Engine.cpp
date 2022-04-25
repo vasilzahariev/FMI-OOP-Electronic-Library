@@ -12,8 +12,10 @@ void Engine::run() {
 		
 		if (operation == 1)
 			sortBook();
-		if (operation == 3)
+		else if (operation == 3)
 			addBook();
+		else if (operation == 4)
+			removeBook();
 		else
 			std::cout << "Invalid operation" << std::endl;
 
@@ -55,6 +57,22 @@ void Engine::addBook() {
 	std::cin >> book;
 
 	m_library += book;
+}
+
+void Engine::removeBook() {
+	const size_t TITLE_SIZE = 100;
+	char title[TITLE_SIZE];
+
+	std::cout << "Enter book title:" << std::endl;
+
+	std::cin.getline(title, TITLE_SIZE);
+
+	try {
+		m_library -= m_library[title];
+	}
+	catch (int err) {
+		std::cout << "Book does not exist!" << std::endl;
+	}
 }
 
 bool cmpTitle(const Book& b1, const Book& b2) {
