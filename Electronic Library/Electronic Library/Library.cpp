@@ -12,8 +12,34 @@ Library::~Library() {
 	delete[] m_data;
 }
 
+void Library::sortByAndPrint(bool(*cmp)(const Book&, const Book&)) {
+	std::cout << sorter(cmp);
+}
+
 Library& Library::operator=(const Library& other) {
 	if (this != &other) copy(other);
+
+	return *this;
+}
+
+Library& Library::operator+=(const Book& book) {
+	if (m_size == m_capacity) allocDataMem(m_capacity * 2);
+
+	m_data[m_size++] = book;
+	
+	return *this;
+}
+
+Library& Library::operator-=(const Book& book) {
+	size_t index = getBookIndex(book);
+
+	if (index == -1) {
+		std::cout << "Book isn't in the library!" << std::endl;
+
+		return *this;
+	}
+
+	std::swap(m_data[index], m_data[--m_size]);
 
 	return *this;
 }
@@ -41,6 +67,25 @@ void Library::allocDataMem(size_t newCapacity) {
 	delete[] m_data;
 	m_data = newBlock;
 	m_capacity = newCapacity;
+}
+
+size_t Library::getBookIndex(const Book& book) const {
+	for (size_t i = 0; i < m_size; i++)
+		if (m_data[i] == book)
+			return i;
+
+	return -1;
+}
+
+Library Library::sorter(bool(*cmp)(const Book&, const Book&)) {
+	Library lib = *this;
+
+	for (size_t i = 0; i < lib.m_size; i++)
+		for (size_t j = i + 1; j < lib.m_size - i; j++)
+			if (cmp(lib.m_data[j], lib.m_data[j - 1]))
+				Helper::swapData(lib.m_data[j], lib.m_data[j - 1]);
+
+	return *this;
 }
 
 std::istream& operator>>(std::istream& in, Library library) {

@@ -140,9 +140,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="Library.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="Library.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

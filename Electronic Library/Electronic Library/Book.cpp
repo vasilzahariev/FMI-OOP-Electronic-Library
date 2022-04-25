@@ -9,10 +9,10 @@ Book::Book() : m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fi
 Book::Book(const char* author, const char* title, const char* fileName, const char* description, const double rating, const int ISBN[ISBN_SIZE])
 		: m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fileName(nullptr),
 		  m_rating(rating) {
-	setString(m_author, author);
-	setString(m_title, title);
-	setString(m_description, description);
-	setString(m_fileName, fileName);
+	Helper::setString(m_author, author);
+	Helper::setString(m_title, title);
+	Helper::setString(m_description, description);
+	Helper::setString(m_fileName, fileName);
 	
 	for (size_t i = 0; i < ISBN_SIZE; i++)
 		m_ISBN[i] = ISBN[i];
@@ -51,11 +51,20 @@ Book& Book::operator=(const Book& other) {
 	return *this;
 }
 
+bool Book::operator==(const Book& other) const {
+	return (strcmp(m_author, other.m_author) == 0 &&
+			strcmp(m_title, other.m_title) == 0 &&
+			strcmp(m_description, other.m_description) == 0 &&
+			strcmp(m_fileName, other.m_fileName) == 0 &&
+			Helper::compareDoubles(m_rating, other.m_rating) == 0 &&
+			Helper::checkIfArraysAreEqual(m_ISBN, ISBN_SIZE, other.m_ISBN, ISBN_SIZE));
+}
+
 void Book::copy(const Book& other) {
-	setString(m_author, other.m_author);
-	setString(m_title, other.m_title);
-	setString(m_description, other.m_description);
-	setString(m_fileName, other.m_fileName);
+	Helper::setString(m_author, other.m_author);
+	Helper::setString(m_title, other.m_title);
+	Helper::setString(m_description, other.m_description);
+	Helper::setString(m_fileName, other.m_fileName);
 
 	m_rating = other.m_rating;
 
@@ -63,29 +72,22 @@ void Book::copy(const Book& other) {
 		m_ISBN[i] = other.m_ISBN[i];
 }
 
-void Book::setString(char*& str, const char* newStr) {
-	delete[] str;
-
-	str = new char[strlen(newStr) + 1];
-	strcpy(str, newStr);
-}
-
-std::istream& operator>>(std::istream& in, Book& book) {
+std::ifstream& operator>>(std::ifstream& in, Book& book) {
 	char buffer[1025];
 
 	in.ignore(LINE_SEPARATOR_SIZE);
 
 	in.getline(buffer, 1025);
-	book.setString(book.m_author, buffer);
+	Helper::setString(book.m_author, buffer);
 
 	in.getline(buffer, 1025);
-	book.setString(book.m_title, buffer);
+	Helper::setString(book.m_title, buffer);
 
 	in.getline(buffer, 1025);
-	book.setString(book.m_description, buffer);
+	Helper::setString(book.m_description, buffer);
 
 	in.getline(buffer, 1025);
-	book.setString(book.m_fileName, buffer);
+	Helper::setString(book.m_fileName, buffer);
 
 	in >> book.m_rating;
 
@@ -93,6 +95,35 @@ std::istream& operator>>(std::istream& in, Book& book) {
 		in >> book.m_ISBN[i];
 
 	in.ignore(LINE_SEPARATOR_SIZE);
+
+	return in;
+}
+
+std::istream& operator>>(std::istream& in, Book& book) {
+	char buffer[1025];
+
+	std::cout << "Enter author's name: ";
+	in.getline(buffer, 1025);
+	Helper::setString(book.m_author, buffer);
+
+	std::cout << "Enter book's title: ";
+	in.getline(buffer, 1025);
+	Helper::setString(book.m_title, buffer);
+
+	std::cout << "Enter small description:" << std::endl;
+	in.getline(buffer, 1025);
+	Helper::setString(book.m_description, buffer);
+
+	std::cout << "Enter the name of the file which contains the book: ";
+	in.getline(buffer, 1025);
+	Helper::setString(book.m_fileName, buffer);
+
+	std::cout << "Enter book rating: ";
+	in >> book.m_rating;
+
+	std::cout << "Enter ISBN: ";
+	for (size_t i = 0; i < ISBN_SIZE; i++)
+		in >> book.m_ISBN[i];
 
 	return in;
 }
