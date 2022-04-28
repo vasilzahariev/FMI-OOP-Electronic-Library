@@ -16,6 +16,11 @@ void Helper::setString(char*& str, const char* newStr) {
     strcpy(str, newStr);
 }
 
+void Helper::readStrLineFromStream(std::istream& in, char*& str, char buffer[1025]) {
+    in.getline(buffer, 1025);
+    Helper::setString(str, buffer);
+}
+
 char* Helper::toLowerStr(char* str) {
     for (size_t i = 0; i < strlen(str); i++)
         str[i] = tolower(str[i]);

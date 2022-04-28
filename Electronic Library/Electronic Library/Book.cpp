@@ -9,10 +9,7 @@ Book::Book() : m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fi
 Book::Book(const char* author, const char* title, const char* fileName, const char* description, const double rating, const ISBN& isbn)
 		: m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fileName(nullptr),
 		  m_rating(rating), m_ISBN(isbn) {
-	Helper::setString(m_author, author);
-	Helper::setString(m_title, title);
-	Helper::setString(m_description, description);
-	Helper::setString(m_fileName, fileName);
+	setBookStrs(author, title, fileName, description);
 }
 
 Book::Book(const Book& book) : m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fileName(nullptr) {
@@ -66,13 +63,16 @@ bool Book::operator==(const Book& other) const {
 }
 
 void Book::copy(const Book& other) {
-	Helper::setString(m_author, other.m_author);
-	Helper::setString(m_title, other.m_title);
-	Helper::setString(m_description, other.m_description);
-	Helper::setString(m_fileName, other.m_fileName);
-
+	setBookStrs(other.m_author, other.m_title, other.m_fileName, other.m_description);
 	m_rating = other.m_rating;
 	m_ISBN = other.m_ISBN;
+}
+
+void Book::setBookStrs(const char* author, const char* title, const char* fileName, const char* description) {
+	Helper::setString(m_author, author);
+	Helper::setString(m_title, title);
+	Helper::setString(m_description, description);
+	Helper::setString(m_fileName, fileName);
 }
 
 std::ifstream& operator>>(std::ifstream& in, Book& book) {
@@ -80,21 +80,12 @@ std::ifstream& operator>>(std::ifstream& in, Book& book) {
 
 	in.ignore(LINE_SEPARATOR_SIZE);
 
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_author, buffer);
+	Helper::readStrLineFromStream(in, book.m_author, buffer);
+	Helper::readStrLineFromStream(in, book.m_title, buffer);
+	Helper::readStrLineFromStream(in, book.m_description, buffer);
+	Helper::readStrLineFromStream(in, book.m_fileName, buffer);
 
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_title, buffer);
-
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_description, buffer);
-
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_fileName, buffer);
-
-	in >> book.m_rating;
-
-	in >> book.m_ISBN;
+	in >> book.m_rating >> book.m_ISBN;
 
 	in.ignore(LINE_SEPARATOR_SIZE);
 
@@ -105,20 +96,16 @@ std::istream& operator>>(std::istream& in, Book& book) {
 	char buffer[1025];
 
 	std::cout << "Enter author's name: ";
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_author, buffer);
+	Helper::readStrLineFromStream(in, book.m_author, buffer);
 
 	std::cout << "Enter book's title: ";
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_title, buffer);
+	Helper::readStrLineFromStream(in, book.m_title, buffer);
 
 	std::cout << "Enter small description:" << std::endl;
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_description, buffer);
+	Helper::readStrLineFromStream(in, book.m_description, buffer);
 
 	std::cout << "Enter the name of the file which contains the book: ";
-	in.getline(buffer, 1025);
-	Helper::setString(book.m_fileName, buffer);
+	Helper::readStrLineFromStream(in, book.m_fileName, buffer);
 
 	std::cout << "Enter book rating: ";
 	in >> book.m_rating;
@@ -130,12 +117,12 @@ std::istream& operator>>(std::istream& in, Book& book) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Book& book) {
-	out << LINE_SEPARATOR << std::endl;
-	out << book.m_author << '\n' << book.m_title << '\n' << book.m_description << '\n' << book.m_fileName << '\n' << book.m_rating << '\n';
-	
-	out << book.m_ISBN;
-
-	out << '\n' << LINE_SEPARATOR << std::endl;
-
-	return out;
+	return (out << LINE_SEPARATOR << '\n'
+				<< book.m_author << '\n'
+				<< book.m_title << '\n'
+				<< book.m_description << '\n'
+				<< book.m_fileName << '\n'
+				<< book.m_rating << '\n'
+				<< book.m_ISBN << '\n'
+				<< LINE_SEPARATOR << '\n');
 }

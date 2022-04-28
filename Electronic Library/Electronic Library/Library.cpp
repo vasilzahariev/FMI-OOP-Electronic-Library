@@ -30,6 +30,14 @@ Book& Library::operator[](const char* title) {
 	throw 1;
 }
 
+const Book& Library::operator[](const char* title) const {
+	for (size_t i = 0; i < m_size; i++)
+		if (strcmp(m_data[i].getTitle(), title) == 0)
+			return m_data[i];
+
+	throw 1;
+}
+
 Library& Library::operator+=(const Book& book) {
 	if (getBookIndex(book) != -1) throw 1;
 
