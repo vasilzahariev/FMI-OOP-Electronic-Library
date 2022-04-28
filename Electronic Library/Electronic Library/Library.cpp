@@ -31,6 +31,8 @@ Book& Library::operator[](const char* title) {
 }
 
 Library& Library::operator+=(const Book& book) {
+	if (getBookIndex(book) != -1) throw 1;
+
 	if (m_size == m_capacity) allocDataMem(m_capacity * 2);
 
 	m_data[m_size++] = book;

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cstring>
 
+#include "ISBN.h"
 #include "Helper.h"
 
 const size_t ISBN_SIZE = 13;
@@ -14,7 +15,7 @@ const char LINE_SEPARATOR[LINE_SEPARATOR_SIZE] = "------------------------------
 class Book {
 public:
 	Book();
-	Book(const char* author, const char* title, const char* fileName, const char* description, const double rating, const int ISBN[ISBN_SIZE]);
+	Book(const char* author, const char* title, const char* fileName, const char* description, const double rating, const ISBN& isbn);
 	Book(const Book& book);
 	~Book();
 
@@ -24,7 +25,11 @@ public:
 
 	char* getDescription() const;
 
+	char* getFileName() const;
+
 	double getRating() const;
+
+	ISBN getISBN() const;
 
 	Book& operator=(const Book& other);
 
@@ -40,7 +45,7 @@ private:
 	char* m_fileName;
 	char* m_description;
 	double m_rating;
-	int m_ISBN[ISBN_SIZE];
+	ISBN m_ISBN;
 
 	void copy(const Book& other);
 };

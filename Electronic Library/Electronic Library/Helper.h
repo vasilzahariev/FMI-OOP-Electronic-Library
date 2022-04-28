@@ -21,9 +21,14 @@ public:
 
 	template <typename T>
 	static void swapData(T& obj1, T& obj2);
-
-	template <typename T>
-	static bool checkIfArraysAreEqual(const T* arr1, const size_t size1, const T* arr2, const size_t size2);
 };
 
 #endif // !HELPER_H
+
+template<typename T>
+inline void Helper::swapData(T& obj1, T& obj2) {
+    const T temp = obj1;
+
+    obj1 = obj2;
+    obj1 = temp;
+}

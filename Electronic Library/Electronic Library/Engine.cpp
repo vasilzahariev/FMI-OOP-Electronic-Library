@@ -16,6 +16,10 @@ void Engine::run() {
 			addBook();
 		else if (operation == 4)
 			removeBook();
+		else if (operation == 5)
+			readBook();
+		else if (operation == 6)
+			std::cout << "Bye!" << std::endl;
 		else
 			std::cout << "Invalid operation" << std::endl;
 
@@ -56,7 +60,12 @@ void Engine::addBook() {
 
 	std::cin >> book;
 
-	m_library += book;
+	try {
+		m_library += book;
+	}
+	catch (int err) {
+		std::cout << "Book already in the library!" << std::endl;
+	}
 }
 
 void Engine::removeBook() {
@@ -75,14 +84,81 @@ void Engine::removeBook() {
 	}
 }
 
+void Engine::readBook() {
+	const size_t TITLE_SIZE = 100;
+	char title[TITLE_SIZE];
+
+	std::cout << "Enter book titile:" << std::endl;
+	std::cin.getline(title, TITLE_SIZE);
+
+	try {
+		std::ifstream file(m_library[title].getFileName());
+
+		bookReader(file);
+
+		file.close();
+	}
+	catch (int err) {
+		std::cout << "Book does not exist!" << std::endl;
+	}
+}
+
+void Engine::bookReader(std::ifstream& file) {
+	const size_t READING_TYPE_SIZE = 50;
+	char readingType[READING_TYPE_SIZE];
+
+	std::cout << "Choose your reading type (rows | punctuation mark):" << std::endl;
+	std::cin.getline(readingType, READING_TYPE_SIZE);
+
+	if (strcmp(Helper::toLowerStr(readingType), "rows") == 0)
+		bookReaderRows(file);
+	else if (strcmp(Helper::toLowerStr(readingType), "punctuation mark") == 0)
+		bookReaderPunctuationMark(file);
+	else
+		std::cout << "Invalid reading type!" << std::endl;
+}
+
+void Engine::bookReaderRows(std::ifstream& file) {
+	int rowsToRead;
+
+	std::cout << "Enter the amount of rows you would like to read: ";
+	std::cin >> rowsToRead;
+
+	readBookRows(file, rowsToRead);
+}
+
+void Engine::readBookRows(std::ifstream& file, const int rowsToRead) {
+	while (!file.eof()) {
+		for (unsigned i = 0; i < rowsToRead; i++) {
+			if (file.eof()) break;
+
+			readBookLine(file);
+		}
+
+		system("pause");
+	}
+}
+
+void Engine::readBookLine(std::ifstream& file) {
+	const size_t LINE_SIZE = 1025;
+	char line[LINE_SIZE];
+
+	file.getline(line, LINE_SIZE);
+
+	std::cout << line;
+}
+
+void Engine::bookReaderPunctuationMark(std::ifstream& file) {
+}
+
 bool cmpTitle(const Book& b1, const Book& b2) {
 	return strcmp(b1.getTitle(), b2.getTitle()) < 0;
 }
 
 bool cmpAuthor(const Book& b1, const Book& b2) {
-	return strcmp(b1.getTitle(), b2.getTitle()) < 0;
+	return strcmp(b1.getAuthor(), b2.getAuthor()) < 0;
 }
 
 bool cmpISBN(const Book& b1, const Book& b2) {
-	return strcmp(b1.getTitle(), b2.getTitle()) < 0;
+	return b1.getISBN() < b2.getISBN();
 }

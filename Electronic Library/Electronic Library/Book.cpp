@@ -6,16 +6,13 @@ Book::Book() : m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fi
 			   m_rating(0) {
 }
 
-Book::Book(const char* author, const char* title, const char* fileName, const char* description, const double rating, const int ISBN[ISBN_SIZE])
+Book::Book(const char* author, const char* title, const char* fileName, const char* description, const double rating, const ISBN& isbn)
 		: m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fileName(nullptr),
-		  m_rating(rating) {
+		  m_rating(rating), m_ISBN(isbn) {
 	Helper::setString(m_author, author);
 	Helper::setString(m_title, title);
 	Helper::setString(m_description, description);
 	Helper::setString(m_fileName, fileName);
-	
-	for (size_t i = 0; i < ISBN_SIZE; i++)
-		m_ISBN[i] = ISBN[i];
 }
 
 Book::Book(const Book& book) : m_author(nullptr), m_title(nullptr), m_description(nullptr), m_fileName(nullptr) {
@@ -41,8 +38,16 @@ char* Book::getDescription() const {
 	return m_description;
 }
 
+char* Book::getFileName() const {
+	return m_fileName;
+}
+
 double Book::getRating() const {
 	return m_rating;
+}
+
+ISBN Book::getISBN() const {
+	return m_ISBN;
 }
 
 Book& Book::operator=(const Book& other) {
@@ -57,7 +62,7 @@ bool Book::operator==(const Book& other) const {
 			strcmp(m_description, other.m_description) == 0 &&
 			strcmp(m_fileName, other.m_fileName) == 0 &&
 			Helper::compareDoubles(m_rating, other.m_rating) == 0 &&
-			Helper::checkIfArraysAreEqual(m_ISBN, ISBN_SIZE, other.m_ISBN, ISBN_SIZE));
+			m_ISBN == other.m_ISBN);
 }
 
 void Book::copy(const Book& other) {
@@ -67,9 +72,7 @@ void Book::copy(const Book& other) {
 	Helper::setString(m_fileName, other.m_fileName);
 
 	m_rating = other.m_rating;
-
-	for (size_t i = 0; i < ISBN_SIZE; i++)
-		m_ISBN[i] = other.m_ISBN[i];
+	m_ISBN = other.m_ISBN;
 }
 
 std::ifstream& operator>>(std::ifstream& in, Book& book) {
@@ -91,8 +94,7 @@ std::ifstream& operator>>(std::ifstream& in, Book& book) {
 
 	in >> book.m_rating;
 
-	for (size_t i = 0; i < ISBN_SIZE; i++)
-		in >> book.m_ISBN[i];
+	in >> book.m_ISBN;
 
 	in.ignore(LINE_SEPARATOR_SIZE);
 
@@ -122,8 +124,7 @@ std::istream& operator>>(std::istream& in, Book& book) {
 	in >> book.m_rating;
 
 	std::cout << "Enter ISBN: ";
-	for (size_t i = 0; i < ISBN_SIZE; i++)
-		in >> book.m_ISBN[i];
+	in >> book.m_ISBN;
 
 	return in;
 }
@@ -132,8 +133,7 @@ std::ostream& operator<<(std::ostream& out, const Book& book) {
 	out << LINE_SEPARATOR << std::endl;
 	out << book.m_author << '\n' << book.m_title << '\n' << book.m_description << '\n' << book.m_fileName << '\n' << book.m_rating << '\n';
 	
-	for (size_t i = 0; i < ISBN_SIZE; i++)
-		out << book.m_ISBN[i] << ' ';
+	out << book.m_ISBN;
 
 	out << '\n' << LINE_SEPARATOR << std::endl;
 

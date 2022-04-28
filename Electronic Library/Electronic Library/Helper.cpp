@@ -1,3 +1,5 @@
+#pragma warning(disable: 4996)
+
 #include "Helper.h"
 
 int Helper::compareDoubles(const double num1, const double num2) {
@@ -19,23 +21,4 @@ char* Helper::toLowerStr(char* str) {
         str[i] = tolower(str[i]);
 
     return str;
-}
-
-template <typename T>
-void Helper::swapData(T& obj1, T& obj2) {
-    T temp = obj1;
-
-    obj1 = obj2;
-    obj1 = temp;
-}
-
-template <typename T>
-bool Helper::checkIfArraysAreEqual(const T* arr1, const size_t size1, const T* arr2, const size_t size2) {
-    if (size1 != size2) return false;
-
-    for (size_t i = 0; i < size1; i++)
-        if (arr1[i] != arr2[i])
-            return false;
-
-    return true;
 }
