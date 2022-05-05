@@ -3,6 +3,11 @@
 ISBN::ISBN() {
 }
 
+ISBN::ISBN(const char* ISBNstr) {
+    for (size_t i = 0; i < SIZE; ++i)
+        m_data[i] = Helper::charToInt(ISBNstr[i]);
+}
+
 ISBN::ISBN(const ISBN& other) {
     copy(other);
 }
@@ -14,7 +19,7 @@ ISBN& ISBN::operator=(const ISBN& other) {
 }
 
 bool ISBN::operator==(const ISBN& other) const {
-    for (size_t i = 0; i < ISBN::SIZE; i++)
+    for (size_t i = 0; i < ISBN::SIZE; ++i)
         if ((*this)[i] != other[i])
             return false;
 
@@ -22,7 +27,7 @@ bool ISBN::operator==(const ISBN& other) const {
 }
 
 bool ISBN::operator<(const ISBN& other) const {
-    for (size_t i = 0; i < SIZE; i++)
+    for (size_t i = 0; i < SIZE; ++i)
         if ((*this)[i] < other[i])
             return true;
 
@@ -44,19 +49,19 @@ const unsigned int& ISBN::operator[](const int index) const {
 }
 
 void ISBN::copy(const ISBN& other) {
-    for (size_t i = 0; i < SIZE; i++)
+    for (size_t i = 0; i < SIZE; ++i)
         (*this)[i] = other[i];
 }
 
 std::istream& operator>>(std::istream& in, ISBN& isbn) {
-    for (size_t i = 0; i < ISBN::SIZE; i++)
+    for (size_t i = 0; i < ISBN::SIZE; ++i)
         in >> isbn[i];
 
     return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const ISBN& isbn) {
-    for (size_t i = 0; i < ISBN::SIZE; i++)
+    for (size_t i = 0; i < ISBN::SIZE; ++i)
         out << isbn[i] << ' ';
 
     return out;

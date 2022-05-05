@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "Helper.h"
+
 /*
 * Implements the basic functionalities of an ISBN (International Standard Book Number)
 */
@@ -12,6 +14,11 @@ public:
 	* The ISBN default constructor
 	*/
 	ISBN();
+	/*
+	* The Book parameterized constructor
+	* @param ISBNstr - A string version of the ISBN
+	*/
+	ISBN(const char* ISBNstr);
 	/*
 	* The ISBN copy constructor.
 	*/

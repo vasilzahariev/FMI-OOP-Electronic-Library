@@ -16,6 +16,18 @@ void Library::sortByAndPrint(bool(*cmp)(const Book&, const Book&)) {
 	std::cout << sorter(cmp);
 }
 
+Book* Library::findABook(bool(*checker)(const Book&, const char*), const char* search) {
+	for (size_t i = 0; i < m_size; ++i) {
+		if (checker(m_data[i], search)) {
+			return &m_data[i];
+		}
+	}
+
+	std::cout << "No book matched the search criteria!" << std::endl;
+
+	return nullptr;
+}
+
 Library& Library::operator=(const Library& other) {
 	if (this != &other) copy(other);
 
@@ -23,7 +35,7 @@ Library& Library::operator=(const Library& other) {
 }
 
 Book& Library::operator[](const char* title) {
-	for (size_t i = 0; i < m_size; i++)
+	for (size_t i = 0; i < m_size; ++i)
 		if (strcmp(m_data[i].getTitle(), title) == 0)
 			return m_data[i];
 
@@ -31,7 +43,7 @@ Book& Library::operator[](const char* title) {
 }
 
 const Book& Library::operator[](const char* title) const {
-	for (size_t i = 0; i < m_size; i++)
+	for (size_t i = 0; i < m_size; ++i)
 		if (strcmp(m_data[i].getTitle(), title) == 0)
 			return m_data[i];
 
@@ -67,7 +79,7 @@ void Library::copy(const Library& other) {
 
 	m_data = new Book[other.m_capacity];
 
-	for (size_t i = 0; i < other.m_size; i++)
+	for (size_t i = 0; i < other.m_size; ++i)
 		m_data[i] = other.m_data[i];
 
 	m_size = other.m_size;
@@ -79,7 +91,7 @@ void Library::allocDataMem(size_t newCapacity) {
 
 	Book* newBlock = new Book[newCapacity];
 
-	for (size_t i = 0; i < m_size; i++)
+	for (size_t i = 0; i < m_size; ++i)
 		newBlock[i] = m_data[i];
 
 	delete[] m_data;
@@ -88,7 +100,7 @@ void Library::allocDataMem(size_t newCapacity) {
 }
 
 size_t Library::getBookIndex(const Book& book) const {
-	for (size_t i = 0; i < m_size; i++)
+	for (size_t i = 0; i < m_size; ++i)
 		if (m_data[i] == book)
 			return i;
 
@@ -98,8 +110,8 @@ size_t Library::getBookIndex(const Book& book) const {
 Library Library::sorter(bool(*cmp)(const Book&, const Book&)) {
 	Library lib = *this;
 
-	for (size_t i = 0; i < lib.m_size; i++)
-		for (size_t j = i + 1; j < lib.m_size - i; j++)
+	for (size_t i = 0; i < lib.m_size; ++i)
+		for (size_t j = i + 1; j < lib.m_size - i; ++j)
 			if (cmp(lib.m_data[j], lib.m_data[j - 1]))
 				Helper::swapData(lib.m_data[j], lib.m_data[j - 1]);
 
@@ -113,7 +125,7 @@ std::istream& operator>>(std::istream& in, Library library) {
 
 	library.allocDataMem(newCapacity);
 
-	for (size_t i = 0; i < library.m_size; i++)
+	for (size_t i = 0; i < library.m_size; ++i)
 		in >> library.m_data[0];
 
 	return in;
@@ -122,7 +134,7 @@ std::istream& operator>>(std::istream& in, Library library) {
 std::ostream& operator<<(std::ostream& out, const Library library) {
 	out << library.m_size << ' ' << library.m_capacity << '\n';
 
-	for (size_t i = 0; i < library.m_size; i++)
+	for (size_t i = 0; i < library.m_size; ++i)
 		out << library.m_data[i];
 
 	return out;

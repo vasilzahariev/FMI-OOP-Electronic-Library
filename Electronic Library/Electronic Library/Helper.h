@@ -34,6 +34,11 @@ public:
 	static char* toLowerStr(char* str);
 
 	/*
+	* Takes a char and turns it into an integer
+	*/
+	static char charToInt(const char c);
+
+	/*
 	* Swaps the data between two objects
 	*/
 	template <typename T>

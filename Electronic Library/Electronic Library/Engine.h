@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include "Library.h"
 
@@ -12,12 +13,16 @@ public:
 
 private:
 	Library m_library;
+	const std::string PASSWORD = "vErYsEcUrEpAsS";
 
 	void printOperations();
 
+	bool checkForAuthentication();
+
 	void sortBook();
-	void addBook(); // TODO: Add security
-	void removeBook(); // TODO: Add security
+	void findBook();
+	void addBook();
+	void removeBook();
 	void readBook();
 
 	void bookReader(std::ifstream& file);
@@ -27,10 +32,19 @@ private:
 	void readBookLine(std::ifstream& file);
 
 	void bookReaderPunctuationMark(std::ifstream& file);
+	void readBookUntilPunctMark(std::ifstream& file, const char punctMark);
+	void readBookText(std::ifstream& file, const char punctMark);
+
+	void searchInput(const char* inputText, char search[], const size_t SEARCH_SIZE, bool (*checker)(const Book&, const char*));
 };
 
 bool cmpTitle(const Book&, const Book&);
 bool cmpAuthor(const Book&, const Book&);
 bool cmpISBN(const Book&, const Book&);
+
+bool checkerTitle(const Book&, const char*);
+bool checkerAuthor(const Book&, const char*);
+bool checkerISBN(const Book&, const char*);
+bool checkerDescription(const Book&, const char*);
 
 #endif // !ENGINE_H

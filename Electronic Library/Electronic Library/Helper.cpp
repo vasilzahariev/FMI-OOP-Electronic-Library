@@ -22,8 +22,12 @@ void Helper::readStrLineFromStream(std::istream& in, char*& str, char buffer[102
 }
 
 char* Helper::toLowerStr(char* str) {
-    for (size_t i = 0; i < strlen(str); i++)
+    for (size_t i = 0; i < strlen(str); ++i)
         str[i] = tolower(str[i]);
 
     return str;
+}
+
+char Helper::charToInt(const char c) {
+	return (int) c - 48;
 }

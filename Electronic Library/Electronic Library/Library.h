@@ -28,6 +28,11 @@ public:
 	void sortByAndPrint(bool(*cmp)(const Book&, const Book&));
 
 	/*
+	* Finds a book by checking if it fits a certain criteria
+	*/
+	Book* findABook(bool (*checker)(const Book&, const char*), const char* search);
+
+	/*
 	* The '=' operator overloader. It copies the data from another object to this one
 	* @return A reference to the transformed this object
 	*/
