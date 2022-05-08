@@ -9,11 +9,15 @@
 
 class Engine {
 public:
+	Engine();
 	void run();
 
 private:
 	Library m_library;
+	const std::string FILE_NAME = "library.txt";
 	const std::string PASSWORD = "vErYsEcUrEpAsS";
+
+	void saveChanges();
 
 	void printOperations();
 

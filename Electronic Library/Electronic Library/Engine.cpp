@@ -1,5 +1,14 @@
 #include "Engine.h"
 
+Engine::Engine() {
+	std::ifstream file(FILE_NAME);
+
+	if (!file.is_open())
+		throw "File did not open correctly!";
+
+	file >> m_library;
+}
+
 void Engine::run() {
 	int operation;
 	
@@ -28,6 +37,17 @@ void Engine::run() {
 	} while (operation != 6);
 }
 
+void Engine::saveChanges() {
+	std::ofstream file(FILE_NAME);
+
+	if (!file.is_open())
+		throw "File did not open correctly!";
+
+	file << m_library;
+
+	file.close();
+}
+
 void Engine::printOperations() {
 	std::cout << "-----------------------" << std::endl;
 	std::cout << "Select an operation:" << std::endl;
@@ -47,9 +67,10 @@ bool Engine::checkForAuthentication() {
 	std::cout << "This action requires authentication" << std::endl;
 	std::cout << "Please enter the password: " << std::endl;
 
+	std::cin.ignore();
 	std::cin.getline(password, PASSWORD_SIZE);
 
-	return strcmp(password, PASSWORD.c_str());
+	return strcmp(password, PASSWORD.c_str()) == 0;
 }
 
 void Engine::sortBook() {
@@ -57,7 +78,7 @@ void Engine::sortBook() {
 	char sortingType[SORTING_TYPE_SIZE];
 	
 	std::cout << "Enter a sorting type (title, author, ISBN): " << std::endl;
-	std::cin.get(sortingType, SORTING_TYPE_SIZE);
+	std::cin.ignore().get(sortingType, SORTING_TYPE_SIZE);
 
 	if (strcmp(Helper::toLowerStr(sortingType), "title") == 0)
 		m_library.sortByAndPrint(&cmpTitle);
@@ -107,6 +128,8 @@ void Engine::addBook() {
 	catch (int err) {
 		std::cout << "Book already in the library!" << std::endl;
 	}
+
+	saveChanges();
 }
 
 void Engine::removeBook() {
@@ -121,6 +144,7 @@ void Engine::removeBook() {
 
 	std::cout << "Enter book title:" << std::endl;
 
+	std::cin.ignore();
 	std::cin.getline(title, TITLE_SIZE);
 
 	try {
@@ -129,6 +153,8 @@ void Engine::removeBook() {
 	catch (int err) {
 		std::cout << "Book does not exist!" << std::endl;
 	}
+
+	saveChanges();
 }
 
 void Engine::readBook() {
@@ -136,6 +162,8 @@ void Engine::readBook() {
 	char title[TITLE_SIZE];
 
 	std::cout << "Enter book titile:" << std::endl;
+
+	std::cin.ignore();
 	std::cin.getline(title, TITLE_SIZE);
 
 	try {
@@ -155,6 +183,8 @@ void Engine::bookReader(std::ifstream& file) {
 	char readingType[READING_TYPE_SIZE];
 
 	std::cout << "Choose your reading type (rows | punctuation mark):" << std::endl;
+
+	std::cin.ignore();
 	std::cin.getline(readingType, READING_TYPE_SIZE);
 
 	if (strcmp(Helper::toLowerStr(readingType), "rows") == 0)
