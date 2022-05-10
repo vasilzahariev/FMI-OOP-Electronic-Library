@@ -11,7 +11,7 @@
 /*
 * The size of the line separator
 */
-const size_t LINE_SEPARATOR_SIZE = 55;
+const size_t LINE_SEPARATOR_SIZE = 56;
 /*
 * Sepator for the begining and end of the output
 */
@@ -70,6 +70,11 @@ public:
 	ISBN getISBN() const;
 
 	/*
+	* Overloader for the operator '>>'. Reads input from files
+	*/
+	void readFromFile(std::istream& file);
+
+	/*
 	* The '=' operator overloader. It copies the data from another object to this one
 	* @return A reference to the transformed this object
 	*/
@@ -80,10 +85,6 @@ public:
 	*/
 	bool operator==(const Book& other) const;
 
-	/*
-	* Overloader for the operator '>>'. Reads input from files
-	*/
-	friend std::ifstream& operator>>(std::ifstream& in, Book& book);
 	/*
 	* Overloader for the operator '>>'. Reads input from the console
 	*/

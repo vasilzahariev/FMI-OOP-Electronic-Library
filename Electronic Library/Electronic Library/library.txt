@@ -1,9 +1,17 @@
-1 2
+2 2
 ------------------------------------------------------
 Pepi K
-C++ for idiots
-Pepi K e mn moshten rapper i toi prepodava na idiotite ot 4ta grupa
-cppByPepi
+C++ for Idiots
+The infamous K-Pop rapper Pepi K tries to teach idiots how to use C++
+cppForIdiots.txt
 5
 1 2 3 4 5 6 7 8 9 0 1 2 3 
+------------------------------------------------------
+------------------------------------------------------
+Trifon Trifonov
+Introduction to Programming
+The IP course in one book
+ip.txt
+5
+1 2 3 4 5 6 7 8 9 0 1 5 7 
 ------------------------------------------------------

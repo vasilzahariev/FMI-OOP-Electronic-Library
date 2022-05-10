@@ -31,7 +31,7 @@ public:
 	* Takes a string and replaces all the characters with their lower versions
 	* @return The lowered version of the string
 	*/
-	static char* toLowerStr(char* str);
+	static char* toLowerStr(const char* str);
 
 	/*
 	* Takes a char and turns it into an integer

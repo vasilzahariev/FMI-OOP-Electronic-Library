@@ -47,6 +47,21 @@ ISBN Book::getISBN() const {
 	return m_ISBN;
 }
 
+void Book::readFromFile(std::istream& file) {
+	char buffer[1025];
+
+	file.ignore(LINE_SEPARATOR_SIZE);
+
+	Helper::readStrLineFromStream(file, m_author, buffer);
+	Helper::readStrLineFromStream(file, m_title, buffer);
+	Helper::readStrLineFromStream(file, m_description, buffer);
+	Helper::readStrLineFromStream(file, m_fileName, buffer);
+
+	file >> m_rating >> m_ISBN;
+
+	file.ignore(LINE_SEPARATOR_SIZE);
+}
+
 Book& Book::operator=(const Book& other) {
 	if (this != &other) copy(other);
 
@@ -73,23 +88,6 @@ void Book::setBookStrs(const char* author, const char* title, const char* fileNa
 	Helper::setString(m_title, title);
 	Helper::setString(m_description, description);
 	Helper::setString(m_fileName, fileName);
-}
-
-std::ifstream& operator>>(std::ifstream& in, Book& book) {
-	char buffer[1025];
-
-	in.ignore(LINE_SEPARATOR_SIZE);
-
-	Helper::readStrLineFromStream(in, book.m_author, buffer);
-	Helper::readStrLineFromStream(in, book.m_title, buffer);
-	Helper::readStrLineFromStream(in, book.m_description, buffer);
-	Helper::readStrLineFromStream(in, book.m_fileName, buffer);
-
-	in >> book.m_rating >> book.m_ISBN;
-
-	in.ignore(LINE_SEPARATOR_SIZE);
-
-	return in;
 }
 
 std::istream& operator>>(std::istream& in, Book& book) {

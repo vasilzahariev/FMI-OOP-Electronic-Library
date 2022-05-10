@@ -9,8 +9,15 @@
 
 class Engine {
 public:
-	Engine();
+	static Engine& getInstance();
+
 	void run();
+
+private:
+	Engine();
+	Engine(const Engine& engine) = delete;
+
+	Engine& operator=(const Engine& other) = delete;
 
 private:
 	Library m_library;

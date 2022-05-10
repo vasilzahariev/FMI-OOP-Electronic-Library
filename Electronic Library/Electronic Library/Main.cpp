@@ -1,9 +1,7 @@
 #include "Engine.h"
 
 int main() {
-	Engine engine;
-
-	engine.run();
+	Engine::getInstance().run();
 
 	return 0;
 }

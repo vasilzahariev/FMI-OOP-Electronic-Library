@@ -9,6 +9,12 @@ Engine::Engine() {
 	file >> m_library;
 }
 
+Engine& Engine::getInstance() {
+	static Engine engine;
+
+	return engine;
+}
+
 void Engine::run() {
 	int operation;
 	
@@ -97,17 +103,17 @@ void Engine::findBook() {
 	char criteria[CRITERIA_SIZE];
 
 	std::cout << "Enter a search criteria(title | author | ISBN | description): ";
-	std::cin.get(criteria, CRITERIA_SIZE);
+	std::cin.ignore().get(criteria, CRITERIA_SIZE);
 
 	char search[SEARCH_SIZE];
 
-	if (strcmp(Helper::toLowerStr(criteria), "title"))
+	if (strcmp(Helper::toLowerStr(criteria), "title") == 0)
 		searchInput("Enter the title: ", search, SEARCH_SIZE, &checkerTitle);
-	else if (strcmp(Helper::toLowerStr(criteria), "author"))
+	else if (strcmp(Helper::toLowerStr(criteria), "author") == 0)
 		searchInput("Enter the author: ", search, SEARCH_SIZE, &checkerAuthor);
-	else if (strcmp(Helper::toLowerStr(criteria), "ISBN"))
+	else if (strcmp(Helper::toLowerStr(criteria), "isbn") == 0)
 		searchInput("Enter the ISBN(don't separate the numbers with spaces): ", search, SEARCH_SIZE, &checkerISBN);
-	else if (strcmp(Helper::toLowerStr(criteria), "description"))
+	else if (strcmp(Helper::toLowerStr(criteria), "description") == 0)
 		searchInput("Enter the description: ", search, SEARCH_SIZE, &checkerDescription);
 }
 
@@ -144,7 +150,6 @@ void Engine::removeBook() {
 
 	std::cout << "Enter book title:" << std::endl;
 
-	std::cin.ignore();
 	std::cin.getline(title, TITLE_SIZE);
 
 	try {
@@ -169,6 +174,12 @@ void Engine::readBook() {
 	try {
 		std::ifstream file(m_library[title].getFileName());
 
+		if (!file.is_open()) {
+			std::cout << "There was a problem while trying to open the file!" << std::endl;
+
+			return;
+		}
+
 		bookReader(file);
 
 		file.close();
@@ -184,7 +195,6 @@ void Engine::bookReader(std::ifstream& file) {
 
 	std::cout << "Choose your reading type (rows | punctuation mark):" << std::endl;
 
-	std::cin.ignore();
 	std::cin.getline(readingType, READING_TYPE_SIZE);
 
 	if (strcmp(Helper::toLowerStr(readingType), "rows") == 0)
@@ -222,7 +232,7 @@ void Engine::readBookLine(std::ifstream& file) {
 
 	file.getline(line, LINE_SIZE);
 
-	std::cout << line;
+	std::cout << line << std::endl;
 }
 
 void Engine::bookReaderPunctuationMark(std::ifstream& file) {
@@ -248,14 +258,16 @@ void Engine::readBookText(std::ifstream& file, const char punctMark) {
 
 	file.getline(text, TEXT_SIZE, punctMark);
 
-	std::cout << text;
+	std::cout << text << std::endl;
 }
 
 void Engine::searchInput(const char* inputText, char search[], const size_t SEARCH_SIZE, bool(*checker)(const Book&, const char*)) {
 	std::cout << inputText;
-	std::cin.get(search, SEARCH_SIZE);
+	std::cin.ignore().get(search, SEARCH_SIZE);
 
-	std::cout << *m_library.findABook(checker, search);
+	Book* book = m_library.findABook(checker, search);
+
+	if (book != nullptr) std::cout << *book << std::endl;
 }
 
 bool cmpTitle(const Book& b1, const Book& b2) {
@@ -271,11 +283,11 @@ bool cmpISBN(const Book& b1, const Book& b2) {
 }
 
 bool checkerTitle(const Book& book, const char* title) {
-	return strcmp(Helper::toLowerStr(book.getTitle()), Helper::toLowerStr((char*) title));
+	return strcmp(Helper::toLowerStr(book.getTitle()), Helper::toLowerStr((char*) title)) == 0;
 }
 
 bool checkerAuthor(const Book& book, const char* author) {
-	return strcmp(Helper::toLowerStr(book.getAuthor()), Helper::toLowerStr((char*)author));
+	return strcmp(Helper::toLowerStr(book.getAuthor()), Helper::toLowerStr((char*)author)) == 0;
 }
 
 bool checkerISBN(const Book& book, const char* ISBNStr) {

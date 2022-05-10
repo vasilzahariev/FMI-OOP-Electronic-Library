@@ -35,9 +35,10 @@ Library& Library::operator=(const Library& other) {
 }
 
 Book& Library::operator[](const char* title) {
-	for (size_t i = 0; i < m_size; ++i)
+	for (size_t i = 0; i < m_size; ++i) {
 		if (strcmp(m_data[i].getTitle(), title) == 0)
 			return m_data[i];
+	}
 
 	throw 1;
 }
@@ -118,20 +119,19 @@ Library Library::sorter(bool(*cmp)(const Book&, const Book&)) {
 	return *this;
 }
 
-std::istream& operator>>(std::istream& in, Library library) {
-	size_t newCapacity;
-	
-	in >> library.m_size >> newCapacity;
+std::istream& operator>>(std::istream& in, Library& library) {
+	in >> library.m_size >> library.m_capacity;
 
-	library.allocDataMem(newCapacity);
+	delete[] library.m_data;
+	library.m_data = new Book[library.m_capacity];
 
 	for (size_t i = 0; i < library.m_size; ++i)
-		in >> library.m_data[0];
+		library.m_data[i].readFromFile(in);
 
 	return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const Library library) {
+std::ostream& operator<<(std::ostream& out, const Library& library) {
 	out << library.m_size << ' ' << library.m_capacity << '\n';
 
 	for (size_t i = 0; i < library.m_size; ++i)

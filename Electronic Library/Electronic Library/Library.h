@@ -66,11 +66,11 @@ public:
 	/*
 	* Overloader for the operator '>>'. Reads input from the console and files
 	*/
-	friend std::istream& operator>>(std::istream& in, Library library);
+	friend std::istream& operator>>(std::istream& in, Library& library);
 	/*
 	* Overloader for the operator '<<'. Outputs Library's information to the console or a file
 	*/
-	friend std::ostream& operator<<(std::ostream& out, const Library library);
+	friend std::ostream& operator<<(std::ostream& out, const Library& library);
 
 private:
 	/*
