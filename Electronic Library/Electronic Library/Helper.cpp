@@ -2,11 +2,11 @@
 
 #include "Helper.h"
 
-int Helper::compareDoubles(const double num1, const double num2) {
+bool Helper::compareDoubles(const double num1, const double num2) {
     const double EPS = 1.0 / (1 << 30);
     const double RES = std::abs(num1 - num2);
     
-    return (RES < EPS ? 0 : 1);
+    return RES < EPS;
 }
 
 void Helper::setString(char*& str, const char* newStr) {

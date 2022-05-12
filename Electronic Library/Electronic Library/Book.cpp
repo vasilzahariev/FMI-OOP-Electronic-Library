@@ -47,7 +47,7 @@ ISBN Book::getISBN() const {
 	return m_ISBN;
 }
 
-void Book::readFromFile(std::istream& file) {
+void Book::readFromFile(std::ifstream& file) {
 	char buffer[1025];
 
 	file.ignore(LINE_SEPARATOR_SIZE);
@@ -73,7 +73,7 @@ bool Book::operator==(const Book& other) const {
 			strcmp(m_title, other.m_title) == 0 &&
 			strcmp(m_description, other.m_description) == 0 &&
 			strcmp(m_fileName, other.m_fileName) == 0 &&
-			Helper::compareDoubles(m_rating, other.m_rating) == 0 &&
+			Helper::compareDoubles(m_rating, other.m_rating) &&
 			m_ISBN == other.m_ISBN);
 }
 

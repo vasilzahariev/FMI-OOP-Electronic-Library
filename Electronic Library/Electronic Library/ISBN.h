@@ -1,76 +1,80 @@
-#ifndef ISBN_H
+﻿#ifndef ISBN_H
 #define ISBN_H
 
 #include <iostream>
 
 #include "Helper.h"
 
-/*
-* Implements the basic functionalities of an ISBN (International Standard Book Number)
+/*!
+* Имплементация на основните функционалности на международен стандартен номер на книга
 */
 class ISBN {
 public:
-	/*
-	* The ISBN default constructor
+	/*!
+	* Конструктор по подразбиране на ISBN
 	*/
 	ISBN();
-	/*
-	* The Book parameterized constructor
-	* @param ISBNstr - A string version of the ISBN
+	/*!
+	* Конструктор с параметри на ISBN
+	* @param ISBNstr - Низ съдържащ ISBN-а
 	*/
 	ISBN(const char* ISBNstr);
-	/*
-	* The ISBN copy constructor.
+	/*!
+	* Конструктор за копиране на ISBN
 	*/
 	ISBN(const ISBN& other);
 
-	/*
-	* The '=' operator overloader. It copies the data from another object to this one
-	* @return A reference to the transformed this object
+	/*!
+	* Предефиниране на оператор "=". Копира данните от подаденият обект към сегащният
+	* @return Референция към трансформираният обект
 	*/
 	ISBN& operator=(const ISBN& other);
 
-	/*
-	* Checks if this ISBN is equal to another ISBN
+	/*!
+	* Предефиниране на оператор "==". Проверява дали този ISBN е същият като подаденият
+	* @return Булева, показваща дали са еднакви
 	*/
 	bool operator==(const ISBN& other) const;
-	/*
-	* Checks if this ISBN is smaller than another ISBN
+	/*!
+	* Предефиниране на оператор "<". Проверява дали този ISBN е по-малък от подаденият като сравнява всяка от техните цифри
+	* @return Булева, показваща дали този е по-малък
 	*/
 	bool operator<(const ISBN& other) const;
 
-	/*
-	* Overloader for the '[]' operator.
-	* @return A reference to the number corresponding to a certain index
+	/*!
+	* Предефиниране на оператор "[]"
+	* @throws "Index out of bounds" - Когато индкесът е под 0 или над максималния брой
+	* @return Референция към числото намиращо се на подаденият индекс
 	*/
 	unsigned int& operator[](const int index);
-	/*
-	* Overloader for the '[]' operator
-	* @return A reference to the constant number corresponding to a certain index
+	/*!
+	* Предефиниране на оператор "[]"
+	* @throws "Index out of bounds" - Когато индкесът е под 0 или над максималния брой
+	* @return Референция към константна версия на числото намиращо се на подаденият индекс
 	*/
 	const unsigned int& operator[](const int index) const;
 
-	/*
-	* Overloader for the operator '>>'. Reads input from the console and files
+	/*!
+	* Предефиниране на оператор ">>". Служи за четене от конзолата и файлове
 	*/
 	friend std::istream& operator>>(std::istream& in, ISBN& isbn);
-	/*
-	* Overloader for the operator '<<'. Outputs ISBN's information to the console or a file
+	/*!
+	* Предефиниране на оператор "<<". Служи за печатане на конзолата и файлове
 	*/
 	friend std::ostream& operator<<(std::ostream& out, const ISBN& isbn);
 
 private:
-	/*
-	* The amount of digits in the ISBN
+	/*!
+	* Броят числа в един ISBN
 	*/
 	static const size_t SIZE = 13;
-	/*
-	* The numbers of the ISBN
+	/*!
+	* Числата в ISBN
 	*/
 	unsigned int m_data[SIZE] = { 0, };
 
-	/*
-	* Copies the data from information from another ISBN to this one
+	/*!
+	* Копира данните от един ISBN към този
 	*/
 	void copy(const ISBN& other);
 };

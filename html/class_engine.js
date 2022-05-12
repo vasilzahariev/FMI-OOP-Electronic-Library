@@ -1,0 +1,26 @@
+var class_engine =
+[
+    [ "Engine", "class_engine.html#a8c98683b0a3aa28d8ab72a8bcd0d52f2", null ],
+    [ "Engine", "class_engine.html#a85b78e31aaa2cb7369979b5ef17d078c", null ],
+    [ "addBook", "class_engine.html#aba636d2189b52d5ff62f32bdae430b4e", null ],
+    [ "bookReader", "class_engine.html#a2a5843a5e23eccead42d1cd0d8f90646", null ],
+    [ "bookReaderPunctuationMark", "class_engine.html#a1a6b67732bd68b972dc7a3d430c08d57", null ],
+    [ "bookReaderRows", "class_engine.html#ac4ea49694fe74847e9d075148e20b05c", null ],
+    [ "checkForAuthentication", "class_engine.html#a5f6fdb20d92b026008fa8ac3ec8d4ee1", null ],
+    [ "findBook", "class_engine.html#a8d1fe8c2f9870fb9039312c3b740c54c", null ],
+    [ "operator=", "class_engine.html#aaf50d58871316eb5d89b2712ed68d6be", null ],
+    [ "printOperations", "class_engine.html#a7bcd45f4c8d5f75508e4fa269ffd4321", null ],
+    [ "readBook", "class_engine.html#a0dd81278564be9adb9fd9c97ea0ea5cc", null ],
+    [ "readBookLine", "class_engine.html#a3d63d4be78804019088bb13482412ecd", null ],
+    [ "readBookRows", "class_engine.html#ae5665240509112a60af7b9263cffc441", null ],
+    [ "readBookText", "class_engine.html#a1dbf34d9e2c24f974e2dffe4e805e708", null ],
+    [ "readBookUntilPunctMark", "class_engine.html#a8b9bb18096de585514b980fb6da7d943", null ],
+    [ "removeBook", "class_engine.html#aea3af6d7c3b580e84192acdf9dc0deda", null ],
+    [ "run", "class_engine.html#a1a210cf30d6bd330b3649439ecd6d6cc", null ],
+    [ "saveChanges", "class_engine.html#a957287c850a27d1a8c6ef86fd504bf6f", null ],
+    [ "searchInput", "class_engine.html#a10a12598cb4277a803e17050b4b016ff", null ],
+    [ "sortBook", "class_engine.html#a65aac97ba9489c7b307a5d9742849f8c", null ],
+    [ "FILE_NAME", "class_engine.html#a158631b93587293f3ea1f542c1afef35", null ],
+    [ "m_library", "class_engine.html#ab59914304dd40254fd3677ed1c3eb2b6", null ],
+    [ "PASSWORD", "class_engine.html#a6dfe9460c1e6ffeb40b393917bef9a22", null ]
+];

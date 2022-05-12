@@ -1,4 +1,4 @@
-#ifndef BOOK_H
+﻿#ifndef BOOK_H
 #define BOOK_H
 
 #include <iostream>
@@ -8,125 +8,125 @@
 #include "ISBN.h"
 #include "Helper.h"
 
-/*
-* The size of the line separator
-*/
-const size_t LINE_SEPARATOR_SIZE = 56;
-/*
-* Sepator for the begining and end of the output
-*/
-const char LINE_SEPARATOR[LINE_SEPARATOR_SIZE] = "------------------------------------------------------";
-
-/*
-* Implements the basic functionalities of a Book
+/*!
+* Имплементация на основните функционалности на Book
 */
 class Book {
 public:
-	/*
-	* The Book default constructor
+	/*!
+	* Конструтора по подозиране на Book
 	*/
 	Book();
-	/*
-	* The Book parameterized constructor
+	/*!
+	* Конструктор с параметри на Book
 	*/
 	Book(const char* author, const char* title, const char* fileName, const char* description, const double rating, const ISBN& isbn);
-	/*
-	* The Book copy constructor
+	/*!
+	* Конструктор за копиране на Book
 	*/
 	Book(const Book& book);
-	/*
-	* The Book destructor
+	/*!
+	* Деструктор на Book
 	*/
 	~Book();
 
-	/*
-	* A getter for m_author
+	/*!
+	* Селектор за m_author
 	*/
 	char* getAuthor() const;
 
-	/*
-	* A getter for m_title
+	/*!
+	* Селектор за m_title
 	*/
 	char* getTitle() const;
 
-	/*
-	* A getter for m_description
+	/*!
+	* Селектор за m_description
 	*/
 	char* getDescription() const;
 
-	/*
-	* A getter for m_fileName
+	/*!
+	* Селектор за m_fileName
 	*/
 	char* getFileName() const;
 
-	/*
-	* A getter for m_rating
+	/*!
+	* Селектор за m_rating
 	*/
 	double getRating() const;
 
-	/*
-	* A getter for m_ISBN
+	/*!
+	* Селектор за m_ISBN
 	*/
 	ISBN getISBN() const;
 
-	/*
-	* Overloader for the operator '>>'. Reads input from files
+	/*!
+	* Чете книга (Book) от подаден файлов поток
 	*/
-	void readFromFile(std::istream& file);
+	void readFromFile(std::ifstream& file);
 
-	/*
-	* The '=' operator overloader. It copies the data from another object to this one
-	* @return A reference to the transformed this object
+	/*!
+	* Предефиниране на оператор "=". Копира данните от подаденият обект към този
+	* @return Референция към трансформираният обект
 	*/
 	Book& operator=(const Book& other);
 
-	/*
-	* Checks if this Book is equal to another Book
+	/*!
+	* Предефниране на оператор "==". Проверява дали тази книга е еднаква с подадената
 	*/
 	bool operator==(const Book& other) const;
 
-	/*
-	* Overloader for the operator '>>'. Reads input from the console
+	/*!
+	* Предефиниране на оператор ">>". Използва се за четене на книга (Book) от конзолата
 	*/
 	friend std::istream& operator>>(std::istream& in, Book& book);
-	/*
-	* Overloader for the operator '<<'. Outputs Book's information to the console or a file
+	/*!
+	* Предефиниране на оператор "<<". Използва се за отпочатване на книга (Book) в конзола или файл
 	*/
 	friend std::ostream& operator<<(std::ostream& out, const Book& book);
 
 private:
-	/*
-	* The name of the Book's author
+	/*!
+	* Големината на разделител на линии
+	*/
+	static const size_t LINE_SEPARATOR_SIZE = 56;
+	/*!
+	* Разделител на линии
+	*/
+	const char LINE_SEPARATOR[Book::LINE_SEPARATOR_SIZE] = "------------------------------------------------------";
+
+	/*!
+	* Име на автора на книгата
 	*/
 	char* m_author;
-	/*
-	* The Book's title (name)
+	/*!
+	* Заглавието на книгата
 	*/
 	char* m_title;
-	/*
-	* The name of the file which contains the Book's contents
+	/*!
+	* Име на текстов файл, където е записан текста на книгите
 	*/
 	char* m_fileName;
-	/*
-	* A small description of the Book
+	/*!
+	* Кратко описание на книгата
 	*/
 	char* m_description;
-	/*
-	* The Book's rating
+	/*!
+	* Рейтинг на книгата
 	*/
 	double m_rating;
-	/*
-	* The ISBN of the Book
+	/*!
+	* Международен стандартен номер на книгата
 	*/
 	ISBN m_ISBN;
 
-	/*
-	* Copies the data from information from another Book to this one
+	/*!
+	* Копира данните от подадената книга (Book) в тази
 	*/
 	void copy(const Book& other);
 
-	/*
-	* Sets the values of the strings in the class (m_author, m_title, m_fileName, m_description)
+	/*!
+	* Задава подадените стойностти на всички низове в класа (m_author, m_title, m_fileName, m_description)
 	*/
 	void setBookStrs(const char* author, const char* title, const char* fileName, const char* description);
 };

@@ -68,13 +68,14 @@ void Engine::printOperations() {
 
 bool Engine::checkForAuthentication() {
 	const size_t PASSWORD_SIZE = 50;
-	char password[PASSWORD_SIZE];
+	char password[PASSWORD_SIZE]{ '\0', };
 
 	std::cout << "This action requires authentication" << std::endl;
 	std::cout << "Please enter the password: " << std::endl;
 
 	std::cin.ignore();
 	std::cin.getline(password, PASSWORD_SIZE);
+
 
 	return strcmp(password, PASSWORD.c_str()) == 0;
 }

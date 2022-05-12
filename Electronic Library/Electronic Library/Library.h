@@ -1,112 +1,116 @@
-#ifndef LIBRARY_H
+﻿#ifndef LIBRARY_H
 #define LIBRARY_H
 
 #include "Book.h"
 
-/*
-* Implements the basic functionalities of a Library
+/*!
+* 
+* Имплементация на основните функционалности на библиотеката (Library)
 */
 class Library {
 public:
-	/*
-	* The Library default constructor
+	/*!
+	* Конструтора по подозиране на Library
 	*/
 	Library();
-	/*
-	* The Library copy constructor
+	/*!
+	* Конструктор за копиране на Library
 	*/
 	Library(const Library& library);
-	/*
-	* The Library destructor
+	/*!
+	* Деструктор на Library
 	*/
 	~Library();
 
-	/*
-	* Sorts a copy of the library and prints it
-	* @param cmp - A pointer function that compares two Books in a specific way
+	/*!
+	* Сортира копие на сегашната библиотека и го принтира на конзолата
+	* @param cmp - Пойнтър функция, която сравнява 2 книги по специфичен начин
 	*/
 	void sortByAndPrint(bool(*cmp)(const Book&, const Book&));
 
-	/*
-	* Finds a book by checking if it fits a certain criteria
+	/*!
+	* Намира книга като проверява дали изпълнява дадено условие
+	* @param checker - Пойнтър функция, която проверява дали дадената книга е търсената
 	*/
 	Book* findABook(bool (*checker)(const Book&, const char*), const char* search);
 
-	/*
-	* The '=' operator overloader. It copies the data from another object to this one
-	* @return A reference to the transformed this object
+	/*!
+	* Предефиниране на оператор "=". Копира данните от подаденият обект към този
+	* @return Референция към трансформираният обект
 	*/
 	Library& operator=(const Library& other);
 
-	/*
-	* Overloader for the '[]' operator.
-	* @throw an exception if there is no book in the library with the given title
-	* @return A reference to the Book corresponding to a specific title
+	/*!
+	* Предефиниране на оператор "[]"
+	* @param title - Заглавие на търсената книга
+	* @throw 1 - Когато не съществува книга с такова заглавие
+	* @return Референция към книгата с подаденото заглавие
 	*/
 	Book& operator[](const char* title);
-	/*
-	* Overloader for the '[]' operator
-	* @throw an exception if there is no book in the library with the given title
-	* @return A reference to the constant Book corresponding to a specific title
+	/*!
+	* Предефиниране на оператор "[]"
+	* @param title - Заглавие на търсената книга
+	* @throw 1 - Когато не съществува книга с такова заглавие
+	* @return Референция към константна версия на книгата с подаденото заглавие
 	*/
 	const Book& operator[](const char* title) const;
 
-	/*
-	* Overloader for the '+=' operator. It adds a Book to the Library
-	* @throw an exception if the book already exists
-	* @return A reference to the transformed this object
+	/*!
+	* Предефиниране на оператор "+=". Добавя книга (Book) в тази библиотека (Library)
+	* @throw 1 - Когато книгата вече същестува
+	* @return Референция към трансформираният обект
 	*/
 	Library& operator+=(const Book& book);
-	/*
-	* Overloader for the '-=' operator. It removes a Book from the Library
-	* @return A reference to the transformed this object
+	/*!
+	* Предефиниране на оператор "-=". Премахва книга (Book) в тази библиотека (Library)
+	* @return Референция към трансформираният обект
 	*/
 	Library& operator-=(const Book& book);
 
-	/*
-	* Overloader for the operator '>>'. Reads input from the console and files
+	/*!
+	* Предефиниране на оператор ">>". Служи за четене от конзолата или файл
 	*/
 	friend std::istream& operator>>(std::istream& in, Library& library);
-	/*
-	* Overloader for the operator '<<'. Outputs Library's information to the console or a file
+	/*!
+	* Предефиниране на оператор "<<". Служи за печатане на конзолата и файлове
 	*/
 	friend std::ostream& operator<<(std::ostream& out, const Library& library);
 
 private:
-	/*
-	* A dynamicly allocated array with the Books in the library
+	/*!
+	* Динамино заделен масив с книги (Book) в библиотеката (Library)
 	*/
 	Book* m_data;
-	/*
-	* The amount of Books in m_data
+	/*!
+	* Броят на книгите (Book) в m_data
 	*/
 	size_t m_size;
-	/*
-	* The maximum amount of Books m_data can contain
+	/*!
+	* Максималният брой книги (Book), които може да бъдат записани в m_data
 	*/
 	size_t m_capacity;
 
-	/*
-	* Copies the data from information from another Library to this one
+	/*!
+	* Копира данните от подадената библиотека (Library) в тази
 	*/
 	void copy(const Library& other);
 
-	/*
-	* Allocates a additional memory for m_data
-	* @param newCapacity - the new capacity that will be set for m_data. If newCapacity is less than m_size, then it's set to m_size + 1
+	/*!
+	* Заделя допълнително памен за m_data
+	* @param newCapacity - новата максимален брой книги (Book) за m_data. Ако newCapacity е по-малко или равно на m_size, то става равно на m_size + 1
 	*/
 	void allocDataMem(size_t newCapacity);
 
-	/*
-	* Finds the index of a specific book
-	* @return the index of the book and -1 if that book isn't in the Library
+	/*!
+	* Намира индекса на определена книга в m_data
+	* @return Индекстът на книгата, ако книгата я няма в библиотеката (Library) връща -1
 	*/
 	size_t getBookIndex(const Book& book) const;
 
-	/*
-	* Sorts a copy of the Library
-	* @param cmp - A pointer function that compares two Books in a specific way (used for the sorting)
-	* @return the sorted copy of Library
+	/*!
+	* Сортира копие на библиотеката (Library) по определени критерии
+	* @param cmp - Пойнтър функция, която сравнява 2 книги (Book) по специфичен начин
+	* @return Сортирано копие на тази библиотека (Library)
 	*/
 	Library sorter(bool(*cmp)(const Book&, const Book&));
 };

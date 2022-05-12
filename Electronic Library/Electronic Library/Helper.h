@@ -1,4 +1,4 @@
-#ifndef HELPER_H
+﻿#ifndef HELPER_H
 #define HELPER_H
 
 #include <iostream>
@@ -6,40 +6,40 @@
 #include <cmath>
 #include <ctype.h>
 
-/**
-* Implements a Helper class with useful functions that can be used by different classes
+/*!
+* Имплементация на Helper клас с полезни фукнции, които могат да бъдат използвани на повече от едно място
 */
 class Helper {
 public:
-	/*
-	* Compares two doubles using an epsilon
-	* @return -1 if num1 is greater, 0 if they are equal, 1 if num2 is greater
+	/*!
+	* Сравнява дали две числа от тип double са еднакви използвайки епсилон
+	* @return Булеан, репрезентиращ дали са равни или не
 	*/
-	static int compareDoubles(const double num1, const double num2);
+	static bool compareDoubles(const double num1, const double num2);
 
-	/*
-	* Sets a new value for a string
+	/*!
+	* Задава стойността на newStr на str
 	*/
 	static void setString(char*& str, const char* newStr);
 
-	/*
-	* Reads a string from the given stream and then sets it as a value for str
+	/*!
+	* Чете низ от даден поток и задава този низ като стойност за str
 	*/
 	static void readStrLineFromStream(std::istream& in, char*& str, char buffer[1025]);
 
-	/*
-	* Takes a string and replaces all the characters with their lower versions
-	* @return The lowered version of the string
+	/*!
+	* Приема низ и заменя всеки символ с неговата по-малка версия
+	* @return По-малката версия на str
 	*/
 	static char* toLowerStr(const char* str);
 
-	/*
-	* Takes a char and turns it into an integer
+	/*!
+	* Превръща символ към integer
 	*/
 	static char charToInt(const char c);
 
-	/*
-	* Swaps the data between two objects
+	/*!
+	* Сменя стойностите / данните на два обекта
 	*/
 	template <typename T>
 	static void swapData(T& obj1, T& obj2);

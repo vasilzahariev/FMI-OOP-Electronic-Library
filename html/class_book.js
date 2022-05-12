@@ -1,0 +1,27 @@
+var class_book =
+[
+    [ "Book", "class_book.html#a2eac9e235a08763158f78533f7a83e1f", null ],
+    [ "Book", "class_book.html#a9a77e6504ad70fc7d765c71b39066ee4", null ],
+    [ "Book", "class_book.html#aa1eaeb421f3884aac2590c363c53a7d0", null ],
+    [ "~Book", "class_book.html#a0ba8eceb34ea1301bc08942e37824767", null ],
+    [ "copy", "class_book.html#ac815d83a61a4ed775bc403bb775a927c", null ],
+    [ "getAuthor", "class_book.html#acd5d108ba5d827ed4672c8f001877d01", null ],
+    [ "getDescription", "class_book.html#ae26fd75b3a0a0d88277f7022874362e2", null ],
+    [ "getFileName", "class_book.html#aa8efc0f9ecd41db7fdd580432b3dc419", null ],
+    [ "getISBN", "class_book.html#a01d9b7fb43383462ccd0484b167005c3", null ],
+    [ "getRating", "class_book.html#a4cbdb7aeb4c5403ca6c89d9f788d22c3", null ],
+    [ "getTitle", "class_book.html#a220c8a709435b27293fa8d48b3bef8ff", null ],
+    [ "operator=", "class_book.html#a4a4926659f166535f24d426e9f0957e6", null ],
+    [ "operator==", "class_book.html#a93c7d697927593b968c5aa8564606218", null ],
+    [ "readFromFile", "class_book.html#a8a25215fd08df333e2d6b72bd1818924", null ],
+    [ "setBookStrs", "class_book.html#a20bad0abb513342b7acca426eb3b0d36", null ],
+    [ "operator<<", "class_book.html#ac2f0dd5fe295710cb9817dd4bc99c0d5", null ],
+    [ "operator>>", "class_book.html#a55962d3fc34119fc7ff28ba4751bae5f", null ],
+    [ "LINE_SEPARATOR", "class_book.html#a78668d6b6e8427d50edc6a44d2840d91", null ],
+    [ "m_author", "class_book.html#ab5ea13986b03968bb5fc3b4864c0aae2", null ],
+    [ "m_description", "class_book.html#a2872c9a061816eb44c5b14c105b7ea0c", null ],
+    [ "m_fileName", "class_book.html#a93aeed150442f1269db12ef34fc94d2c", null ],
+    [ "m_ISBN", "class_book.html#a36d66dffdf87d6ee8fa4f02e37988b13", null ],
+    [ "m_rating", "class_book.html#afba66fd59c69c2de3b0c97686545cb27", null ],
+    [ "m_title", "class_book.html#aeb9d85bb05981c913f7109647419ce30", null ]
+];
