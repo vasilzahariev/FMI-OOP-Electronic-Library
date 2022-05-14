@@ -115,12 +115,12 @@ std::istream& operator>>(std::istream& in, Book& book) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Book& book) {
-	return (out << LINE_SEPARATOR << '\n'
+	return (out << book.LINE_SEPARATOR << '\n'
 				<< book.m_author << '\n'
 				<< book.m_title << '\n'
 				<< book.m_description << '\n'
 				<< book.m_fileName << '\n'
 				<< book.m_rating << '\n'
 				<< book.m_ISBN << '\n'
-				<< LINE_SEPARATOR << '\n');
+				<< book.LINE_SEPARATOR << '\n');
 }
