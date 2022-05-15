@@ -308,8 +308,6 @@ void Engine::searchInput(const char* inputText, char search[], const size_t SEAR
 }
 
 bool cmpTitle(const Book& b1, const Book& b2, const bool isAscending) {
-	std::cout << std::boolalpha << isAscending << std::endl;
-
 	return (isAscending ? strcmp(b1.getTitle(), b2.getTitle()) < 0 : strcmp(b1.getTitle(), b2.getTitle()) > 0);
 }
 

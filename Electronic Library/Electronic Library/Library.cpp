@@ -112,7 +112,7 @@ Library Library::sorter(bool(*cmp)(const Book&, const Book&, const bool), const 
 	Library lib = *this;
 
 	for (size_t i = 0; i < lib.m_size; ++i)
-		for (size_t j = i + 1; j < lib.m_size - i; ++j)
+		for (size_t j = 1; j < lib.m_size - i; ++j)
 			if (cmp(lib.m_data[j], lib.m_data[j - 1], isAscending))
 				Helper::swapData(lib.m_data[j], lib.m_data[j - 1]);
 
