@@ -26,7 +26,7 @@ public:
 	* Сортира копие на сегашната библиотека и го принтира на конзолата
 	* @param cmp - Пойнтър функция, която сравнява 2 книги по специфичен начин
 	*/
-	void sortByAndPrint(bool(*cmp)(const Book&, const Book&));
+	void sortByAndPrint(bool(*cmp)(const Book&, const Book&, const bool), const bool isAscending);
 
 	/*!
 	* Намира книга като проверява дали изпълнява дадено условие
@@ -112,7 +112,7 @@ private:
 	* @param cmp - Пойнтър функция, която сравнява 2 книги (Book) по специфичен начин
 	* @return Сортирано копие на тази библиотека (Library)
 	*/
-	Library sorter(bool(*cmp)(const Book&, const Book&));
+	Library sorter(bool(*cmp)(const Book&, const Book&, const bool), const bool isAscending);
 };
 
 #endif // !LIBRARY_H

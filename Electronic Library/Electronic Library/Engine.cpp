@@ -16,7 +16,7 @@ Engine& Engine::getInstance() {
 }
 
 void Engine::run() {
-	int operation;
+	char operation;
 	
 	do {
 		printOperations();
@@ -25,22 +25,27 @@ void Engine::run() {
 
 		std::cin >> operation;
 		
-		if (operation == 1)
+		if (operation == '1')
 			sortBook();
-		else if (operation == 2)
+		else if (operation == '2')
 			findBook();
-		else if (operation == 3)
+		else if (operation == '3')
 			addBook();
-		else if (operation == 4)
+		else if (operation == '4')
 			removeBook();
-		else if (operation == 5)
+		else if (operation == '5')
 			readBook();
-		else if (operation == 6)
+		else if (operation == '6')
 			std::cout << "Bye!" << std::endl;
 		else
 			std::cout << "Invalid operation" << std::endl;
 
-	} while (operation != 6);
+		if (operation != '6') {
+			system("pause");
+			system("cls");
+		}
+
+	} while (operation != '6');
 }
 
 void Engine::saveChanges() {
@@ -82,17 +87,31 @@ bool Engine::checkForAuthentication() {
 
 void Engine::sortBook() {
 	const size_t SORTING_TYPE_SIZE = 50;
+	const size_t PRINTING_TYPE_SIZE = 50;
 	char sortingType[SORTING_TYPE_SIZE];
+	char printingType[PRINTING_TYPE_SIZE];
 	
-	std::cout << "Enter a sorting type (title, author, ISBN): " << std::endl;
-	std::cin.ignore().get(sortingType, SORTING_TYPE_SIZE);
+	do {
+		std::cout << "Enter a sorting type (title | author | ISBN): " << std::endl;
+		std::cin.ignore().get(sortingType, SORTING_TYPE_SIZE);
+	} while (strcmp(Helper::toLowerStr(sortingType), "title") != 0 &&
+			 strcmp(Helper::toLowerStr(sortingType), "author") != 0 &&
+			 strcmp(Helper::toLowerStr(sortingType), "isbn") != 0);
+
+	do {
+		std::cout << "Enter a printing type (ascending | descending): " << std::endl;
+		std::cin.ignore().get(printingType, PRINTING_TYPE_SIZE);
+	} while (strcmp(Helper::toLowerStr(printingType), "ascending") != 0 &&
+			 strcmp(Helper::toLowerStr(printingType), "descending") != 0);
+
+	bool isAscending = strcmp(Helper::toLowerStr(printingType), "ascending") == 0;
 
 	if (strcmp(Helper::toLowerStr(sortingType), "title") == 0)
-		m_library.sortByAndPrint(&cmpTitle);
+		m_library.sortByAndPrint(&cmpTitle, isAscending);
 	else if (strcmp(Helper::toLowerStr(sortingType), "author") == 0)
-		m_library.sortByAndPrint(&cmpAuthor);
+		m_library.sortByAndPrint(&cmpAuthor, isAscending);
 	else if (strcmp(Helper::toLowerStr(sortingType), "isbn") == 0)
-		m_library.sortByAndPrint(&cmpISBN);
+		m_library.sortByAndPrint(&cmpISBN, isAscending);
 	else
 		std::cout << "Invalid sorting type!" << std::endl;
 }
@@ -154,6 +173,19 @@ void Engine::removeBook() {
 	std::cin.getline(title, TITLE_SIZE);
 
 	try {
+		const char* fileName = m_library[title].getFileName();
+
+		char SHOULD_DELETE[5];
+		
+		do {
+			std::cout << "Do you want to delete the file containg the book? (yes | no)" << std::endl;
+			std::cin.get(SHOULD_DELETE, 5);
+		} while (strcmp(SHOULD_DELETE, "yes") != 0 && strcmp(SHOULD_DELETE, "no") != 0);
+
+		if (strcmp(SHOULD_DELETE, "yes") == 0) {
+			remove(fileName);
+		}
+
 		m_library -= m_library[title];
 	}
 	catch (int err) {
@@ -223,7 +255,8 @@ void Engine::readBookRows(std::ifstream& file, const int rowsToRead) {
 			readBookLine(file);
 		}
 
-		system("pause");
+		if (!file.eof()) system("pause");
+		else std::cout << std::endl << "You've read the whole book!" << std::endl;
 	}
 }
 
@@ -239,8 +272,10 @@ void Engine::readBookLine(std::ifstream& file) {
 void Engine::bookReaderPunctuationMark(std::ifstream& file) {
 	char punctMark;
 
-	std::cout << "Enter the punctuation mark you would like to stop reading at: ";
-	std::cin >> punctMark;
+	do {
+		std::cout << "Enter the punctuation mark you would like to stop reading at: ";
+		std::cin >> punctMark;
+	} while (std::ispunct(punctMark) == false);
 
 	readBookUntilPunctMark(file, punctMark);
 }
@@ -249,7 +284,8 @@ void Engine::readBookUntilPunctMark(std::ifstream& file, const char punctMark) {
 	while (!file.eof()) {
 		readBookText(file, punctMark);
 
-		system("pause");
+		if (!file.eof()) system("pause");
+		else std::cout << std::endl << "You've read the whole book!" << std::endl;
 	}
 }
 
@@ -271,16 +307,18 @@ void Engine::searchInput(const char* inputText, char search[], const size_t SEAR
 	if (book != nullptr) std::cout << *book << std::endl;
 }
 
-bool cmpTitle(const Book& b1, const Book& b2) {
-	return strcmp(b1.getTitle(), b2.getTitle()) < 0;
+bool cmpTitle(const Book& b1, const Book& b2, const bool isAscending) {
+	std::cout << std::boolalpha << isAscending << std::endl;
+
+	return (isAscending ? strcmp(b1.getTitle(), b2.getTitle()) < 0 : strcmp(b1.getTitle(), b2.getTitle()) > 0);
 }
 
-bool cmpAuthor(const Book& b1, const Book& b2) {
-	return strcmp(b1.getAuthor(), b2.getAuthor()) < 0;
+bool cmpAuthor(const Book& b1, const Book& b2, const bool isAscending) {
+	return (isAscending ? strcmp(b1.getAuthor(), b2.getAuthor()) < 0 : strcmp(b1.getAuthor(), b2.getAuthor()) > 0);
 }
 
-bool cmpISBN(const Book& b1, const Book& b2) {
-	return b1.getISBN() < b2.getISBN();
+bool cmpISBN(const Book& b1, const Book& b2, const bool isAscending) {
+	return (isAscending ? b1.getISBN() < b2.getISBN() : b1.getISBN() > b2.getISBN());
 }
 
 bool checkerTitle(const Book& book, const char* title) {

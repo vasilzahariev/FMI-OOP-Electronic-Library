@@ -50,7 +50,7 @@ inline void Helper::swapData(T& obj1, T& obj2) {
 	const T temp = obj1;
 
 	obj1 = obj2;
-	obj1 = temp;
+	obj2 = temp;
 }
 
 #endif // !HELPER_H

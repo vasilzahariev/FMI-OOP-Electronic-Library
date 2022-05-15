@@ -63,7 +63,7 @@ public:
 	/*!
 	* Чете книга (Book) от подаден файлов поток
 	*/
-	void readFromFile(std::ifstream& file);
+	void readFromFile(std::istream& file);
 
 	/*!
 	* Предефиниране на оператор "=". Копира данните от подаденият обект към този

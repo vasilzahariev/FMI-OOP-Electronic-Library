@@ -1,17 +1,41 @@
-2 2
+5 8
 ------------------------------------------------------
-Pepi K
-C++ for Idiots
-The infamous K-Pop rapper Pepi K tries to teach idiots how to use C++
-cppForIdiots.txt
-5
-1 2 3 4 5 6 7 8 9 0 1 2 3 
+George R. R. Martin
+A Game of Thrones
+A Game of Thrones is a contemporary masterpiece of fantasy. The cold is returning to Winterfell, where summers can last decades and winters a lifetime. A time of conflict has arisen in the Stark family, as they are pulled from the safety of their home into a whirlpool of tragedy, betrayal, assassination, plots and counterplots. Each decision and action carries with it the potential for conflict as several prominent families, comprised of lords, ladies, soldiers, sorcerers, assassins and bastards, are pulled together in the most deadly game of all--the game of thrones.
+aGameOfThrones.txt
+4.5
+9 7 8 0 5 5 3 5 9 3 7 1 6 
 ------------------------------------------------------
 ------------------------------------------------------
 Trifon Trifonov
 Introduction to Programming
 The IP course in one book
 ip.txt
-5
+4
 1 2 3 4 5 6 7 8 9 0 1 5 7 
+------------------------------------------------------
+------------------------------------------------------
+Marc Gregoire
+Professional C++
+C++ is notoriously difficult to master, but its wide-ranging capabilities have made it the most common language for gaming and commercial software applications. Even experienced users are typically unfamiliar with many advanced features, but the release of C++17 presents the perfect opportunity to explore the language's full capabilities. This new fourth edition of Professional C++ provides a code-intensive, solutions-oriented guide to everything C++ has to offer, including the newest tools and features in the latest release. Packed with practical instructions geared toward real-world programming, this book is the programmer's ideal opportunity to dig deeper into C++.
+professionalCpp.txt
+5
+9 7 8 1 1 1 9 4 2 1 3 0 6 
+------------------------------------------------------
+------------------------------------------------------
+George R. R. Martin
+A Clash of Kings
+A Clash of Kings depicts the Seven Kingdoms of Westeros in civil war, while the Night's Watch mounts a reconnaissance to investigate the mysterious people known as wildlings. Meanwhile, Daenerys Targaryen continues her plan to conquer the Seven Kingdoms.
+aClashOfKings.txt
+4.4
+9 7 8 0 5 5 3 5 7 9 9 0 1 
+------------------------------------------------------
+------------------------------------------------------
+Bye Bye Book
+Bye Bye Book
+bye bye book
+bye.txt
+1
+0 1 2 3 3 9 8 5 4 4 4 7 5 
 ------------------------------------------------------

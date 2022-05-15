@@ -34,6 +34,14 @@ bool ISBN::operator<(const ISBN& other) const {
     return false;
 }
 
+bool ISBN::operator>(const ISBN& other) const {
+    for (size_t i = 0; i < SIZE; ++i)
+        if ((*this)[i] > other[i])
+            return true;
+
+    return false;
+}
+
 unsigned int& ISBN::operator[](const int index) {
     if (index < 0 || index >= 13)
         throw "Index out of bounds";

@@ -12,8 +12,8 @@ Library::~Library() {
 	delete[] m_data;
 }
 
-void Library::sortByAndPrint(bool(*cmp)(const Book&, const Book&)) {
-	std::cout << sorter(cmp);
+void Library::sortByAndPrint(bool(*cmp)(const Book&, const Book&, const bool), const bool isAscending) {
+	std::cout << sorter(cmp, isAscending);
 }
 
 Book* Library::findABook(bool(*checker)(const Book&, const char*), const char* search) {
@@ -108,15 +108,15 @@ size_t Library::getBookIndex(const Book& book) const {
 	return -1;
 }
 
-Library Library::sorter(bool(*cmp)(const Book&, const Book&)) {
+Library Library::sorter(bool(*cmp)(const Book&, const Book&, const bool), const bool isAscending) {
 	Library lib = *this;
 
 	for (size_t i = 0; i < lib.m_size; ++i)
 		for (size_t j = i + 1; j < lib.m_size - i; ++j)
-			if (cmp(lib.m_data[j], lib.m_data[j - 1]))
+			if (cmp(lib.m_data[j], lib.m_data[j - 1], isAscending))
 				Helper::swapData(lib.m_data[j], lib.m_data[j - 1]);
 
-	return *this;
+	return lib;
 }
 
 std::istream& operator>>(std::istream& in, Library& library) {

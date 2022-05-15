@@ -47,7 +47,7 @@ ISBN Book::getISBN() const {
 	return m_ISBN;
 }
 
-void Book::readFromFile(std::ifstream& file) {
+void Book::readFromFile(std::istream& file) {
 	char buffer[1025];
 
 	file.ignore(LINE_SEPARATOR_SIZE);

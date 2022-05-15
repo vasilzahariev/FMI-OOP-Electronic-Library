@@ -136,15 +136,15 @@ private:
 /*!
 * Сравнява и намира коя книга е по-малка по азбучен ред
 */
-bool cmpTitle(const Book&, const Book&);
+bool cmpTitle(const Book&, const Book&, const bool);
 /*!
 * Сравнява и намира коя книга е по-малка по азбучен ред
 */
-bool cmpAuthor(const Book&, const Book&);
+bool cmpAuthor(const Book&, const Book&, const bool);
 /*!
 * Сравнява и намира коя книга е по-малка по ISBN
 */
-bool cmpISBN(const Book&, const Book&);
+bool cmpISBN(const Book&, const Book&, const bool);
 
 /*!
 * Проверява дали заглавието на книгата е същото като подаденото
